@@ -11,24 +11,21 @@ def login(request):
         form = LoginForms(request.POST)
 
         if form.is_valid():
-            nome= form['nome_login'].value()
-            senha=form['senha'].value()
+            nome = form['nome_login'].value()
+            senha = form['senha'].value()
 
         usuario = auth.authenticate(
             request,
-            username = nome,
-            password = senha
+            username=nome,
+            password=senha
         )
         if usuario is not None:
             auth.login(request, usuario)
-            messages.success(request, "Login Efetuado com Sucesso")
             return redirect('index')
         else:
-            messages.error(request, "Erro no Login")
             return redirect('login')
 
-
-    return render(request, "usuarios/login.html", {"form": form})
+    return render(request, 'usuarios/login.html', {'form': form})
 
 def cadastro(request):
 
